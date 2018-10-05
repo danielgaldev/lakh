@@ -6,6 +6,9 @@ services:
     volumes:
       - mvn-repo:/root/.m2
       - .:/code
+    command: mvn spring-boot:run
+    ports:
+      - "8080:8080"
 
 volumes:
   mvn-repo:
