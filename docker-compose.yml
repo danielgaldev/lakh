@@ -1,14 +1,21 @@
 version: '3'
 
 services:
-  app:
+  package:
     build: .
     volumes:
       - mvn-repo:/root/.m2
       - .:/code
     command: mvn package
+  app:
+    image: openjdk:8-jre-alpine
+    volumes:
+      - .:/tmp
+    command: java -jar /tmp/target/myproject-0.0.1-SNAPSHOT.jar
     ports:
       - "8080:8080"
+    depends_on:
+      - package
 
 volumes:
   mvn-repo:
