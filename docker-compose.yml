@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    volumes:
+      - mvn-repo:/root/.m2
+      - .:/code
+
+volumes:
+  mvn-repo:
+    external: true
