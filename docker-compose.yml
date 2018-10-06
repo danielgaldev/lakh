@@ -7,7 +7,7 @@ services:
     volumes:
       - mvn-repo:/root/.m2
       - .:/code
-    command: bash -c "mvn package && cp /code/target/*.jar /code/app/"
+    command: bash -c "mvn clean install && cp /code/target/*.jar /code/app/"
 
   app:
     build: app/
@@ -15,7 +15,7 @@ services:
       - package
     links:
       - package:package
-    command: bash -c "while ping -c1 package &>/dev/null; do sleep 1; done; echo package_finish && java -jar myproject-0.0.1-SNAPSHOT.jar"
+    command: bash -c "while ping -c1 package &>/dev/null; do sleep 1; done; echo package_finish && java -jar $$(ls *.jar)"
     ports:
       - "8080:8080"
 
