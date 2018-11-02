@@ -2,6 +2,18 @@ version: '3'
 
 services:
 
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=topsecret
+      - MYSQL_DATABASE=devdb
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=dbpassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
   package:
     build: .
     volumes:
@@ -21,4 +33,6 @@ services:
 
 volumes:
   mvn-repo:
+    external: true
+  mysql-data:
     external: true
